@@ -79,7 +79,7 @@ class PdfInvoiceGenerator {
                 ? components.buildInvoiceTitle(ttf)
                 : pw.Container(
                     width: double.infinity,
-                    color: PdfColor.fromHex('#0A85ED'), // Blue
+                    color: PdfColor.fromHex('#4C585B'), // Changed from brown/orange to dark gray
                     padding: const pw.EdgeInsets.symmetric(vertical: 5),
                     child: pw.Text(
                       'تابع فاتورة أولية', // "Continued Invoice"
@@ -109,7 +109,7 @@ class PdfInvoiceGenerator {
               style: pw.TextStyle(
                 font: ttf,
                 fontSize: 10,
-                color: PdfColor.fromHex('#0277BD'), // Dark blue
+                color: PdfColor.fromHex('#4C585B'), // Changed from brown/orange to dark gray
               ),
               textAlign: pw.TextAlign.center,
             );
