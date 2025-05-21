@@ -41,18 +41,31 @@ class DeleteProduct extends ProductsEvent {
   List<Object> get props => [product];
 }
 
+class SearchProducts extends ProductsEvent {
+  final String query;
+
+  const SearchProducts(this.query);
+
+  @override
+  List<Object> get props => [query];
+}
+
 // State
 class ProductsState extends Equatable {
   final List<Product> products;
   final List<Product> lowStockProducts;
   final List<Product> expiringSoonProducts;
   final List<Product> outOfStockProducts;
+  final String searchQuery;
+  final List<Product> filteredProducts;
 
   const ProductsState({
     this.products = const [],
     this.lowStockProducts = const [],
     this.expiringSoonProducts = const [],
     this.outOfStockProducts = const [],
+    this.searchQuery = '',
+    this.filteredProducts = const [],
   });
 
   ProductsState copyWith({
@@ -60,18 +73,28 @@ class ProductsState extends Equatable {
     List<Product>? lowStockProducts,
     List<Product>? expiringSoonProducts,
     List<Product>? outOfStockProducts,
+    String? searchQuery,
+    List<Product>? filteredProducts,
   }) {
     return ProductsState(
       products: products ?? this.products,
       lowStockProducts: lowStockProducts ?? this.lowStockProducts,
       expiringSoonProducts: expiringSoonProducts ?? this.expiringSoonProducts,
       outOfStockProducts: outOfStockProducts ?? this.outOfStockProducts,
+      searchQuery: searchQuery ?? this.searchQuery,
+      filteredProducts: filteredProducts ?? this.filteredProducts,
     );
   }
 
   @override
-  List<Object> get props =>
-      [products, lowStockProducts, expiringSoonProducts, outOfStockProducts];
+  List<Object> get props => [
+        products,
+        lowStockProducts,
+        expiringSoonProducts,
+        outOfStockProducts,
+        searchQuery,
+        filteredProducts,
+      ];
 }
 
 // Cubit
@@ -99,6 +122,7 @@ class ProductsCubit extends Cubit<ProductsState> {
       lowStockProducts: lowStock,
       expiringSoonProducts: expiringSoon,
       outOfStockProducts: outOfStock,
+      filteredProducts: products,
     ));
   }
 
@@ -126,5 +150,24 @@ class ProductsCubit extends Cubit<ProductsState> {
     loadProducts();
     // Update cashbox when deleting a product
     _cashboxCubit?.updateCashbox();
+  }
+
+  void searchProducts(String query) {
+    if (query.isEmpty) {
+      emit(state.copyWith(
+        searchQuery: '',
+        filteredProducts: state.products,
+      ));
+      return;
+    }
+
+    final filtered = state.products.where((product) {
+      return product.category.toLowerCase().contains(query.toLowerCase());
+    }).toList();
+
+    emit(state.copyWith(
+      searchQuery: query,
+      filteredProducts: filtered,
+    ));
   }
 }

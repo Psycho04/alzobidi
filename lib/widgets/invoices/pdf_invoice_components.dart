@@ -4,11 +4,11 @@ import '../../models/invoice.dart';
 import '../../l10n/app_localizations.dart';
 
 // Header component
-pw.Widget buildHeader(pw.Font ttf, pw.MemoryImage logo, 
+pw.Widget buildHeader(pw.Font ttf, pw.MemoryImage logo,
     pw.MemoryImage qrCode, AppLocalizations localizations) {
   return pw.Container(
     width: double.infinity,
-    color: PdfColor.fromHex('#00514C'), // Dark green
+    color: PdfColor.fromHex('#4C585B'), // Dark gray
     padding: const pw.EdgeInsets.symmetric(vertical: 10, horizontal: 15),
     child: pw.Row(
       mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
@@ -35,28 +35,14 @@ pw.Widget buildHeader(pw.Font ttf, pw.MemoryImage logo,
                 ),
                 textAlign: pw.TextAlign.center,
               ),
-              // Tax and registration info in a single row to save space
-              pw.Row(
-                mainAxisAlignment: pw.MainAxisAlignment.center,
-                children: [
-                  pw.Text(
-                    '${localizations.taxNumber}: ${Invoice.taxNumber}',
-                    style: pw.TextStyle(
-                      font: ttf,
-                      color: PdfColor.fromHex('#E8F5E9'), // Light green
-                      fontSize: 9,
-                    ),
-                  ),
-                  pw.SizedBox(width: 10),
-                  pw.Text(
-                    '${localizations.commercialRegistration}: ${Invoice.commercialRegistrationNumber}',
-                    style: pw.TextStyle(
-                      font: ttf,
-                      color: PdfColor.fromHex('#E8F5E9'), // Light green
-                      fontSize: 9,
-                    ),
-                  ),
-                ],
+              // Only show commercial registration info
+              pw.Text(
+                '${localizations.commercialRegistration}: ${Invoice.commercialRegistrationNumber}',
+                style: pw.TextStyle(
+                  font: ttf,
+                  color: PdfColor.fromHex('#F5F5F5'), // Light gray
+                  fontSize: 9,
+                ),
               ),
             ],
           ),
@@ -76,7 +62,7 @@ pw.Widget buildHeader(pw.Font ttf, pw.MemoryImage logo,
 pw.Widget buildInvoiceTitle(pw.Font ttf) {
   return pw.Container(
     width: double.infinity,
-    color: PdfColor.fromHex('#00514C'), // Dark green
+    color: PdfColor.fromHex('#4C585B'), // Dark gray
     padding: const pw.EdgeInsets.symmetric(vertical: 5),
     child: pw.Text(
       'فاتورة أولية',
@@ -108,7 +94,7 @@ pw.Widget buildInvoiceDetails(Invoice invoice, pw.Font ttf) {
             child: pw.Container(
               padding: const pw.EdgeInsets.all(5),
               decoration: pw.BoxDecoration(
-                border: pw.Border.all(color: PdfColor.fromHex('#2E7D32')), // Dark green border
+                border: pw.Border.all(color: PdfColor.fromHex('#4C585B')), // Dark gray border
                 borderRadius: const pw.BorderRadius.all(pw.Radius.circular(4)),
               ),
               child: pw.Column(
@@ -123,14 +109,14 @@ pw.Widget buildInvoiceDetails(Invoice invoice, pw.Font ttf) {
                           font: ttf,
                           fontWeight: pw.FontWeight.bold,
                           fontSize: 9,
-                          color: PdfColor.fromHex('#2E7D32'), // Dark green
+                          color: PdfColor.fromHex('#4C585B'), // Dark gray
                         ),
                       ),
-                      pw.Text(invoice.id.substring(0, 8),
+                      pw.Text(invoice.id.length > 8 ? invoice.id.substring(0, 8) : invoice.id,
                         style: pw.TextStyle(
                           font: ttf,
                           fontSize: 9,
-                          color: PdfColor.fromHex('#2E7D32'), // Dark green
+                          color: PdfColor.fromHex('#4C585B'), // Dark gray
                         ),
                       ),
                     ],
@@ -145,14 +131,14 @@ pw.Widget buildInvoiceDetails(Invoice invoice, pw.Font ttf) {
                           font: ttf,
                           fontWeight: pw.FontWeight.bold,
                           fontSize: 9,
-                          color: PdfColor.fromHex('#2E7D32'), // Dark green
+                          color: PdfColor.fromHex('#4C585B'), // Dark gray
                         ),
                       ),
                       pw.Text(formatDate(invoice.date),
                         style: pw.TextStyle(
                           font: ttf,
                           fontSize: 9,
-                          color: PdfColor.fromHex('#2E7D32'), // Dark green
+                          color: PdfColor.fromHex('#4C585B'), // Dark gray
                         ),
                       ),
                     ],
@@ -169,7 +155,7 @@ pw.Widget buildInvoiceDetails(Invoice invoice, pw.Font ttf) {
             child: pw.Container(
               padding: const pw.EdgeInsets.all(5),
               decoration: pw.BoxDecoration(
-                border: pw.Border.all(color: PdfColor.fromHex('#2E7D32')), // Dark green border
+                border: pw.Border.all(color: PdfColor.fromHex('#4C585B')), // Dark gray border
                 borderRadius: const pw.BorderRadius.all(pw.Radius.circular(4)),
               ),
               child: pw.Column(
@@ -184,14 +170,14 @@ pw.Widget buildInvoiceDetails(Invoice invoice, pw.Font ttf) {
                           font: ttf,
                           fontWeight: pw.FontWeight.bold,
                           fontSize: 9,
-                          color: PdfColor.fromHex('#2E7D32'), // Dark green
+                          color: PdfColor.fromHex('#4C585B'), // Dark gray
                         ),
                       ),
-                      pw.Text(invoice.id.substring(0, 8),
+                      pw.Text(invoice.id.length > 8 ? invoice.id.substring(0, 8) : invoice.id,
                         style: pw.TextStyle(
                           font: ttf,
                           fontSize: 9,
-                          color: PdfColor.fromHex('#2E7D32'), // Dark green
+                          color: PdfColor.fromHex('#4C585B'), // Dark gray
                         ),
                       ),
                     ],
@@ -206,14 +192,14 @@ pw.Widget buildInvoiceDetails(Invoice invoice, pw.Font ttf) {
                           font: ttf,
                           fontWeight: pw.FontWeight.bold,
                           fontSize: 9,
-                          color: PdfColor.fromHex('#2E7D32'), // Dark green
+                          color: PdfColor.fromHex('#4C585B'), // Dark gray
                         ),
                       ),
                       pw.Text('${formatDate(invoice.date)} ${invoice.date.hour}:${invoice.date.minute}',
                         style: pw.TextStyle(
                           font: ttf,
                           fontSize: 9,
-                          color: PdfColor.fromHex('#2E7D32'), // Dark green
+                          color: PdfColor.fromHex('#4C585B'), // Dark gray
                         ),
                       ),
                     ],
@@ -236,7 +222,7 @@ pw.Widget buildInvoiceDetails(Invoice invoice, pw.Font ttf) {
             child: pw.Container(
               padding: const pw.EdgeInsets.all(5),
               decoration: pw.BoxDecoration(
-                border: pw.Border.all(color: PdfColor.fromHex('#2E7D32')), // Dark green border
+                border: pw.Border.all(color: PdfColor.fromHex('#4C585B')), // Dark gray border
                 borderRadius: const pw.BorderRadius.all(pw.Radius.circular(4)),
               ),
               child: pw.Row(
@@ -247,14 +233,14 @@ pw.Widget buildInvoiceDetails(Invoice invoice, pw.Font ttf) {
                       font: ttf,
                       fontWeight: pw.FontWeight.bold,
                       fontSize: 9,
-                      color: PdfColor.fromHex('#2E7D32'), // Dark green
+                      color: PdfColor.fromHex('#4C585B'), // Dark gray
                     ),
                   ),
                   pw.Text(invoice.customer.name,
                     style: pw.TextStyle(
                       font: ttf,
                       fontSize: 9,
-                      color: PdfColor.fromHex('#2E7D32'), // Dark green
+                      color: PdfColor.fromHex('#4C585B'), // Dark gray
                     ),
                   ),
                 ],
@@ -269,7 +255,7 @@ pw.Widget buildInvoiceDetails(Invoice invoice, pw.Font ttf) {
             child: pw.Container(
               padding: const pw.EdgeInsets.all(5),
               decoration: pw.BoxDecoration(
-                border: pw.Border.all(color: PdfColor.fromHex('#2E7D32')), // Dark green border
+                border: pw.Border.all(color: PdfColor.fromHex('#4C585B')), // Dark gray border
                 borderRadius: const pw.BorderRadius.all(pw.Radius.circular(4)),
               ),
               child: pw.Row(
@@ -280,14 +266,14 @@ pw.Widget buildInvoiceDetails(Invoice invoice, pw.Font ttf) {
                       font: ttf,
                       fontWeight: pw.FontWeight.bold,
                       fontSize: 9,
-                      color: PdfColor.fromHex('#2E7D32'), // Dark green
+                      color: PdfColor.fromHex('#4C585B'), // Dark gray
                     ),
                   ),
                   pw.Text(invoice.customer.name,
                     style: pw.TextStyle(
                       font: ttf,
                       fontSize: 9,
-                      color: PdfColor.fromHex('#2E7D32'), // Dark green
+                      color: PdfColor.fromHex('#4C585B'), // Dark gray
                     ),
                   ),
                 ],

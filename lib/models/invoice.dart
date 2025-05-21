@@ -56,6 +56,6 @@ class Invoice extends HiveObject {
   });
 
   static const String institutionName = 'Mohammed Ali Bakri Al-Zubaidi Veterinary Institution';
-  static const String taxNumber = '192903904';
-  static const String commercialRegistrationNumber = '5851879775';
-} 
+  static const String taxNumber = ''; // Removed as requested
+  static const String commercialRegistrationNumber = '٤٠٣١٣١٩٥٧٢';
+}

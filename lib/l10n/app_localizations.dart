@@ -106,6 +106,10 @@ abstract class AppLocalizations {
   String get amountExceedsTotal;
   String get pay;
   String get paymentSuccessful;
+
+  // Search
+  String get searchProducts;
+  String get searchResults;
 }
 
 class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

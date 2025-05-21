@@ -3,13 +3,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../models/product.dart';
 import '../../cubits/products_cubit.dart';
 import '../../l10n/app_localizations.dart';
+import '../../models/invoice.dart';
 
 class AddProductToInvoiceDialog extends StatefulWidget {
   final Function(Map<Product, int>) onProductsSelected;
+  final List<InvoiceItem> existingItems;
 
   const AddProductToInvoiceDialog({
     super.key,
     required this.onProductsSelected,
+    required this.existingItems,
   });
 
   @override
@@ -19,6 +22,15 @@ class AddProductToInvoiceDialog extends StatefulWidget {
 
 class _AddProductToInvoiceDialogState extends State<AddProductToInvoiceDialog> {
   final Map<Product, int> selectedProducts = {};
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize selectedProducts with existing items
+    for (var item in widget.existingItems) {
+      selectedProducts[item.product] = item.quantity;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

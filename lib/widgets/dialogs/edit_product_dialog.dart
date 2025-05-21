@@ -5,19 +5,34 @@ import '../../models/product.dart';
 import '../../cubits/products_cubit.dart';
 import '../../l10n/app_localizations.dart';
 
-class AddProductDialog extends StatefulWidget {
-  const AddProductDialog({super.key});
+class EditProductDialog extends StatefulWidget {
+  final Product product;
+
+  const EditProductDialog({
+    super.key,
+    required this.product,
+  });
 
   @override
-  State<AddProductDialog> createState() => _AddProductDialogState();
+  State<EditProductDialog> createState() => _EditProductDialogState();
 }
 
-class _AddProductDialogState extends State<AddProductDialog> {
+class _EditProductDialogState extends State<EditProductDialog> {
   final formKey = GlobalKey<FormState>();
-  String category = '';
-  int quantity = 0;
-  double pricePerUnit = 0.0;
-  DateTime expirationDate = DateTime.now().add(const Duration(days: 30));
+  late String category;
+  late int quantity;
+  late double pricePerUnit;
+  late DateTime expirationDate;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize with the product values
+    category = widget.product.category;
+    quantity = widget.product.quantity;
+    pricePerUnit = widget.product.pricePerUnit;
+    expirationDate = widget.product.expirationDate;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +40,7 @@ class _AddProductDialogState extends State<AddProductDialog> {
 
     // Using the brown/orange color scheme from the app
     const Color primaryColor = Color(0xFFB25D1E); // Brown/orange color from the image
+    const Color deleteColor = Color(0xFFE57373); // Light red for delete button
 
     return Dialog(
       shape: RoundedRectangleBorder(
@@ -45,25 +61,16 @@ class _AddProductDialogState extends State<AddProductDialog> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                // Header with icon
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      localizations.addProduct,
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: primaryColor,
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    const Icon(
-                      Icons.add_circle,
+                // Header
+                Center(
+                  child: Text(
+                    localizations.editProduct,
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
                       color: primaryColor,
-                      size: 20,
                     ),
-                  ],
+                  ),
                 ),
                 const SizedBox(height: 20),
 
@@ -71,6 +78,7 @@ class _AddProductDialogState extends State<AddProductDialog> {
                 _buildTextField(
                   label: localizations.categoryType,
                   icon: Icons.category_outlined,
+                  initialValue: category,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return localizations.pleaseEnterCategory;
@@ -85,6 +93,7 @@ class _AddProductDialogState extends State<AddProductDialog> {
                 _buildTextField(
                   label: localizations.quantity,
                   icon: Icons.shopping_bag_outlined,
+                  initialValue: quantity.toString(),
                   keyboardType: TextInputType.number,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -104,6 +113,7 @@ class _AddProductDialogState extends State<AddProductDialog> {
                 _buildTextField(
                   label: localizations.pricePerUnit,
                   icon: Icons.attach_money_outlined,
+                  initialValue: pricePerUnit.toString(),
                   keyboardType: TextInputType.number,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -219,18 +229,37 @@ class _AddProductDialogState extends State<AddProductDialog> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // Add Button
+                    // Delete Button
+                    TextButton(
+                      onPressed: () {
+                        context.read<ProductsCubit>().deleteProduct(widget.product);
+                        Navigator.pop(context);
+                      },
+                      style: TextButton.styleFrom(
+                        foregroundColor: deleteColor,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 12,
+                        ),
+                      ),
+                      child: Text(
+                        localizations.delete,
+                        style: const TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                    
+                    // Save Button
                     ElevatedButton(
                       onPressed: () {
                         if (formKey.currentState!.validate()) {
                           formKey.currentState!.save();
-                          final product = Product(
-                            category: category,
-                            quantity: quantity,
-                            pricePerUnit: pricePerUnit,
-                            expirationDate: expirationDate,
-                          );
-                          context.read<ProductsCubit>().addProduct(product);
+                          widget.product.category = category;
+                          widget.product.quantity = quantity;
+                          widget.product.pricePerUnit = pricePerUnit;
+                          widget.product.expirationDate = expirationDate;
+                          context.read<ProductsCubit>().updateProduct(widget.product);
                           Navigator.pop(context);
                         }
                       },
@@ -241,17 +270,17 @@ class _AddProductDialogState extends State<AddProductDialog> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        minimumSize: const Size(120, 45),
+                        minimumSize: const Size(100, 45),
                       ),
                       child: Text(
-                        localizations.add,
+                        localizations.save,
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
-
+                    
                     // Cancel Button
                     TextButton(
                       onPressed: () => Navigator.pop(context),
@@ -277,6 +306,7 @@ class _AddProductDialogState extends State<AddProductDialog> {
   Widget _buildTextField({
     required String label,
     required IconData icon,
+    required String initialValue,
     TextInputType? keyboardType,
     String? Function(String?)? validator,
     void Function(String?)? onSaved,
@@ -286,6 +316,7 @@ class _AddProductDialogState extends State<AddProductDialog> {
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
       child: TextFormField(
+        initialValue: initialValue,
         decoration: InputDecoration(
           labelText: label,
           suffixIcon: Icon(
@@ -328,9 +359,9 @@ class _AddProductDialogState extends State<AddProductDialog> {
   }
 }
 
-void showAddProductDialog(BuildContext context) {
+void showEditProductDialog(BuildContext context, Product product) {
   showDialog(
     context: context,
-    builder: (context) => const AddProductDialog(),
+    builder: (context) => EditProductDialog(product: product),
   );
 }

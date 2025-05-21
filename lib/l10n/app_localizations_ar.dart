@@ -156,4 +156,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get pay => 'دفع';
   @override
   String get paymentSuccessful => 'تم الدفع بنجاح';
+
+  // Search
+  @override
+  String get searchProducts => 'البحث عن المنتجات...';
+  @override
+  String get searchResults => 'نتائج البحث';
 }

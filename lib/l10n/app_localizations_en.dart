@@ -158,4 +158,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get pay => 'Pay';
   @override
   String get paymentSuccessful => 'Payment successful';
+
+  // Search
+  @override
+  String get searchProducts => 'Search products...';
+  @override
+  String get searchResults => 'Search Results';
 }
