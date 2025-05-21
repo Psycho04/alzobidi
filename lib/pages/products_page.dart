@@ -139,7 +139,7 @@ class _ProductsPageState extends State<ProductsPage> {
                     overflow: TextOverflow.ellipsis,
                   ),
                   Text(
-                    '${AppLocalizations.of(context).price}: \$${product.pricePerUnit.toStringAsFixed(2)}',
+                    '${AppLocalizations.of(context).price}: SAR ${product.pricePerUnit.toStringAsFixed(2)}',
                     style: const TextStyle(fontSize: 12),
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -202,7 +202,7 @@ class _ProductsPageState extends State<ProductsPage> {
                     overflow: TextOverflow.ellipsis,
                   ),
                   Text(
-                    '${AppLocalizations.of(context).price}: \$${product.pricePerUnit.toStringAsFixed(2)}',
+                    '${AppLocalizations.of(context).price}: SAR ${product.pricePerUnit.toStringAsFixed(2)}',
                     style: const TextStyle(fontSize: 12),
                     overflow: TextOverflow.ellipsis,
                   ),

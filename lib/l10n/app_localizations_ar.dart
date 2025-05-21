@@ -142,4 +142,18 @@ class AppLocalizationsAr extends AppLocalizations {
   String get recentTransactions => 'المعاملات الأخيرة';
   @override
   String get noRecentTransactions => 'لا توجد معاملات حديثة';
+
+  // Payment
+  @override
+  String get amount => 'المبلغ';
+  @override
+  String get pleaseEnterAmount => 'الرجاء إدخال المبلغ';
+  @override
+  String get invalidAmount => 'مبلغ غير صالح';
+  @override
+  String get amountExceedsTotal => 'المبلغ لا يمكن أن يتجاوز المجموع';
+  @override
+  String get pay => 'دفع';
+  @override
+  String get paymentSuccessful => 'تم الدفع بنجاح';
 }

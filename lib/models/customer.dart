@@ -20,6 +20,10 @@ class Customer extends HiveObject {
     required this.name,
     required this.whatsappNumber,
     this.totalPaid = 0.0,
-    this.remainingBalance = 0.0,
+    this.remainingBalance = 0.0, String? address, String? vatNumber,
   });
+
+  get vatNumber => null;
+
+  get address => null;
 } 

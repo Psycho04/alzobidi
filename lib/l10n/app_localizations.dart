@@ -98,6 +98,14 @@ abstract class AppLocalizations {
   String get totalProfit;
   String get recentTransactions;
   String get noRecentTransactions;
+
+  // Payment
+  String get amount;
+  String get pleaseEnterAmount;
+  String get invalidAmount;
+  String get amountExceedsTotal;
+  String get pay;
+  String get paymentSuccessful;
 }
 
 class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

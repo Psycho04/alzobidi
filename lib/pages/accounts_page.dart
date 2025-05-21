@@ -52,11 +52,11 @@ class AccountsPage extends StatelessWidget {
                       const SizedBox(height: 4),
                       Text(customer.whatsappNumber),
                       Text(
-                        '${AppLocalizations.of(context).remainingBalance}: ${customer.remainingBalance.toStringAsFixed(2)} \$',
+                        '${AppLocalizations.of(context).remainingBalance}: SAR ${customer.remainingBalance.toStringAsFixed(2)}',
                         style: const TextStyle(color: Colors.orange),
                       ),
                       Text(
-                        '${AppLocalizations.of(context).paymentVoucher}: 0.00 \$',
+                        '${AppLocalizations.of(context).paymentVoucher}: ${customer.totalPaid.toStringAsFixed(2)} SAR',
                         style: const TextStyle(color: Colors.green),
                       ),
                     ],
@@ -138,7 +138,7 @@ class AccountsPage extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      '\$ ${customer.remainingBalance.toStringAsFixed(2)}',
+                      'SAR ${customer.remainingBalance.toStringAsFixed(2)}',
                       style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -151,7 +151,7 @@ class AccountsPage extends StatelessWidget {
               ),
               const SizedBox(height: 20),
 
-              // Payment Voucher
+              // Payment Voucher (Total Paid)
               Row(
                 children: [
                   Expanded(
@@ -167,12 +167,12 @@ class AccountsPage extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 4),
-              const Row(
+              Row(
                 children: [
                   Expanded(
                     child: Text(
-                      '0.00 \$',
-                      style: TextStyle(
+                      'SAR ${customer.totalPaid.toStringAsFixed(2)}',
+                      style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: Colors.green,

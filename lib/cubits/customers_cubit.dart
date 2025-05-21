@@ -121,24 +121,29 @@ class CustomersCubit extends Cubit<CustomersState> {
     if (_invoicesBox == null) return;
 
     final invoices = _invoicesBox!.values.toList();
-    final customerTotalMap = <String, double>{};
+    final customerTotalInvoiceAmountMap = <String, double>{};
+    final customerTotalPaidAmountMap = <String, double>{};
 
-    // Calculate total paid for each customer
+    // Calculate total invoice amount and total paid amount for each customer
     for (final invoice in invoices) {
       final customerName = invoice.customer.name;
-      customerTotalMap[customerName] =
-          (customerTotalMap[customerName] ?? 0.0) + invoice.totalAmount;
+
+      // Sum total invoice amount
+      customerTotalInvoiceAmountMap[customerName] =
+          (customerTotalInvoiceAmountMap[customerName] ?? 0.0) + invoice.totalAmount;
+
+      // Sum total paid amount
+      customerTotalPaidAmountMap[customerName] =
+          (customerTotalPaidAmountMap[customerName] ?? 0.0) + (invoice.paidAmount ?? 0.0);
     }
 
     // Update customer objects
     for (final customer in _customersBox.values) {
-      final totalPaid = customerTotalMap[customer.name] ?? 0.0;
-      customer.totalPaid = totalPaid;
+      final totalInvoiceAmount = customerTotalInvoiceAmountMap[customer.name] ?? 0.0;
+      final totalPaidAmount = customerTotalPaidAmountMap[customer.name] ?? 0.0;
 
-      // For this app, we'll set the remaining balance to a percentage of the total paid
-      // This is just a placeholder calculation - you can replace it with your actual business logic
-      customer.remainingBalance =
-          totalPaid * 0.2; // Example: 20% of total paid is remaining
+      customer.totalPaid = totalPaidAmount;
+      customer.remainingBalance = totalInvoiceAmount - totalPaidAmount;
 
       customer.save();
     }

@@ -229,7 +229,7 @@ class _CashboxPageState extends State<CashboxPage>
                       duration: const Duration(milliseconds: 800),
                       builder: (context, value, child) {
                         return Text(
-                          '${value.toStringAsFixed(2)} \$',
+                          '${value.toStringAsFixed(2)} SAR',
                           style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
@@ -288,7 +288,7 @@ class _CashboxPageState extends State<CashboxPage>
                 title: Text(invoice.customer.name),
                 subtitle: Text(DateFormat('yyyy/MM/dd').format(invoice.date)),
                 trailing: Text(
-                  '${invoice.totalAmount.toStringAsFixed(2)} \$',
+                  '${invoice.totalAmount.toStringAsFixed(2)} SAR',
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.green,

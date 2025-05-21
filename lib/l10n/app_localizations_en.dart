@@ -144,4 +144,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get recentTransactions => 'Recent Transactions';
   @override
   String get noRecentTransactions => 'No recent transactions';
+
+  // Payment
+  @override
+  String get amount => 'Amount';
+  @override
+  String get pleaseEnterAmount => 'Please enter the amount';
+  @override
+  String get invalidAmount => 'Invalid amount';
+  @override
+  String get amountExceedsTotal => 'Amount cannot exceed total';
+  @override
+  String get pay => 'Pay';
+  @override
+  String get paymentSuccessful => 'Payment successful';
 }

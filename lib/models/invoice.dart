@@ -39,12 +39,20 @@ class Invoice extends HiveObject {
   @HiveField(4)
   double totalAmount;
 
+  @HiveField(5)
+  double? paidAmount;
+
+  @HiveField(6)
+  bool isPaid;
+
   Invoice({
     required this.id,
     required this.customer,
     required this.items,
     required this.date,
     required this.totalAmount,
+    this.paidAmount,
+    this.isPaid = false,
   });
 
   static const String institutionName = 'Mohammed Ali Bakri Al-Zubaidi Veterinary Institution';
